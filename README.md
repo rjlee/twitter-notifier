@@ -24,6 +24,6 @@ Usage: notify.rb [options]
 ## Run
 
 ```
-ruby notify_server.rb start -- --search "securitay" --delay 60 \
---consumer-key "app-key" --consumer-secret "app-secret" --access-token "your-token" -access-token-secret "your-secret"
+ruby notify_server.rb start -- --search "securitay" --delay 60 --consumer-key "app-key" \
+--consumer-secret "app-secret" --access-token "your-token" -access-token-secret "your-secret"
 ```
