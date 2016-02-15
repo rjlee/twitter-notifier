@@ -27,3 +27,7 @@ Usage: notify.rb [options]
 ruby notify_server.rb start -- --search "securitay" --delay 60 --consumer-key "app-key" \
 --consumer-secret "app-secret" --access-token "your-token" -access-token-secret "your-secret"
 ```
+
+## License
+
+The software is made available under the Apache 2.0 license.  Any assets under the /assets directory are sourced from the web and as such their provenance is unknown.
