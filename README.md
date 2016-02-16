@@ -22,17 +22,26 @@ Usage: notify.rb [options]
         --search SEARCH              the search string to search twitter for
         --delay DELAY                the time in seconds between checking for updates
         --verbose                    displays verbose output
+        --quiet                      output nothing on STDOUT
+        --proxy PROXY                the proxy string to use, of the form protocol:://host:port
+        --config CONFIG              the config file to use
         --consumer-key KEY           the consumer key for the app
         --consumer-secret SECRET     the consumer secret for the app
-        --access-token TOKEN         the access token for the user
-        --access-token-secret SECRET the access token secret for the user
 ```
 
 ## Run
 
+Modify the config file 'config.yaml.example' and save as 'config.yaml'.  Then to manage the server:
+
 ```
-ruby notify_server.rb start -- --search "securitay" --delay 60 --consumer-key "app-key" \
---consumer-secret "app-secret" --access-token "your-token" -access-token-secret "your-secret"
+# Start the server and daemonize
+ruby notify_server.rb start
+# Stop the server
+ruby notify_server.rb stop
+# Run in interactive mode
+ruby notify_server.rb run
+# Supply command line args
+ruby notify_server.rb run -- --verbose
 ```
 
 ## License

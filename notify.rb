@@ -5,10 +5,16 @@ require 'optparse'
 require 'ostruct'
 require 'terminal-notifier'
 require 'twitter'
+require 'yaml'
+require 'pp'
 
 options = OpenStruct.new
 options.delay = 60
-options.verbose= false
+options.verbose = false
+options.quiet = false
+options.proxy = ''
+options.config = 'config.yaml'
+options.proxy = ENV['HTTPS_PROXY']
 
 opt_parser = OptionParser.new do |opts|
   opts.banner = "Usage: notify.rb [options]"
@@ -22,29 +28,43 @@ opt_parser = OptionParser.new do |opts|
   opts.on("--verbose", "displays verbose output") do |verbose|
     options.verbose=true
   end
+  opts.on("--quiet", "output nothing on STDOUT") do |quiet|
+    options.quiet
+  end   
+  opts.on("--proxy PROXY", "the proxy string to use, of the form protocol:://host:port") do |proxy|
+    options.proxy=proxy
+  end 
+  opts.on("--config CONFIG", "the config file to use") do |config|
+    options.config=config
+  end
   opts.on("--consumer-key KEY", "the consumer key for the app") do |consumer_key|
     options.consumer_key=consumer_key
   end
   opts.on("--consumer-secret SECRET", "the consumer secret for the app") do |consumer_secret|
     options.consumer_secret=consumer_secret
   end
-  opts.on("--access-token TOKEN", "the access token for the user") do |access_token|
-    options.access_token=access_token
+end
+conf=opt_parser.parse!(ARGV)
+
+if File.exist?(File.join(__dir__, options.config))
+  fileconf = {}
+  fileconf = YAML::load_file(File.join(__dir__, options.config))
+  fileconf.keys.each do |key|
+    options[key.to_sym] = fileconf[key]
   end
-  opts.on("--access-token-secret SECRET", "the access token secret for the user") do |access_token_secret|
-    options.access_token_secret=access_token_secret
+  if options.verbose
+    puts "Options loaded:"
+    pp options
   end
 end
-opt_parser.parse!(ARGV)
 
 client = Twitter::REST::Client.new do |config|
   config.consumer_key        = options.consumer_key
   config.consumer_secret     = options.consumer_secret
-  config.access_token        = options.access_token
-  config.access_token_secret = options.access_token_secret
+  config.proxy = options.proxy
 end
 
-if options.verbose
+unless options.quiet
   puts "Searching for:"
   puts options.search
 end

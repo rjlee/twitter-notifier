@@ -1,3 +1,4 @@
 Gemfile.lock
 start.sh
 notify.rb.pid
+config.yaml
