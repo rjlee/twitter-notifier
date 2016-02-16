@@ -52,10 +52,7 @@ if File.exist?(File.join(__dir__, options.config))
   fileconf.keys.each do |key|
     options[key.to_sym] = fileconf[key]
   end
-  if options.verbose
-    puts "Options loaded:"
-    pp options
-  end
+  puts "Options loaded:\n#{options}" if options.verbose
 end
 
 client = Twitter::REST::Client.new do |config|
@@ -64,18 +61,22 @@ client = Twitter::REST::Client.new do |config|
   config.proxy = options.proxy
 end
 
-unless options.quiet
-  puts "Searching for:"
-  puts options.search
-end
+puts "Searching for:\n#{options.search}" unless options.quiet
 
+recent_tweet_id = nil
 loop do
-  client.search(options.search).take(10).collect do |tweet|
-    if tweet.created_at >= Time.now-options.delay
+  soptions = recent_tweet_id.nil? ? {} : {:since_id => recent_tweet_id}
+  puts "Searching with options:\n#{soptions}" if options.verbose
+
+  tweets = client.search(options.search, soptions).take(10).collect
+  tweets.each do |tweet|
+    if (recent_tweet_id.nil? && tweet.created_at >= Time.now-options.delay) or (!recent_tweet_id.nil?)
       puts "#{tweet.user.screen_name}: #{tweet.text}" if options.verbose
       TerminalNotifier.notify("#{tweet.user.screen_name}: #{tweet.text}", :title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => tweet.uri)
     end
   end
+  recent_tweet_id = tweets.first.id if tweets.count > 0
+
   puts "Sleeping for #{options.delay} secs" if options.verbose
   sleep(options.delay)
 end
