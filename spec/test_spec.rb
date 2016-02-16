@@ -1,10 +1,6 @@
 require_relative '../lib/twitternotifier'
 
 RSpec.describe TwitterNotifier do
-	before(:each) do
-		# Clear down any cmd line args supplied by rspec runner
-  		ARGV.clear
-	end
   it "accepts constructor options" do
   	tn = TwitterNotifier.new({  :delay => 1, 
   								:verbose => true, 
