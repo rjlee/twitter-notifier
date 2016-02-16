@@ -1,4 +1,4 @@
-# twitter-notification-centre
+# twitter-notification-centre [![Build Status](https://travis-ci.org/rjlee/twitter-notification-centre.svg?branch=master)](https://travis-ci.org/rjlee/twitter-notification-centre)
 
 Script to periodically run a twitter search and post notifications in Mac OS X notification centre.
 
