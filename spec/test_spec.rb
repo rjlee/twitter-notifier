@@ -1,4 +1,4 @@
-require './twitternotifier.rb'
+require './notify.rb'
 
 RSpec.describe TwitterNotifier do
 	before(:each) do

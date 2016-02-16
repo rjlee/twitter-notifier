@@ -9,15 +9,21 @@ require 'twitter'
 
 class TwitterNotifier
 
-  def initialize
+  attr_reader :options
+
+  def initialize(options = {})
     @options = OpenStruct.new
+    # Set defaults
     @options.delay = 60
     @options.verbose = false
     @options.quiet = false
-    @options.proxy = ''
     @options.config = 'config.yaml'
-    @options.proxy = ENV['HTTPS_PROXY']
+    @options.proxy = ENV['HTTPS_PROXY'].nil? ? '' : ENV['HTTPS_PROXY']
+    # Set any options supplied as constructor args
+    options.keys.each { |key| @options[key.to_sym] = options[key] }
+    # Set any options supplied as cmd line args
     parse
+    # Set any options supplied in configuration file
     load_config
   end
 
@@ -101,8 +107,10 @@ class TwitterNotifier
   end
 end
 
-tn = TwitterNotifier.new
-tn.run
+if __FILE__==$0
+  tn = TwitterNotifier.new
+  tn.run
+end
 
 
 
