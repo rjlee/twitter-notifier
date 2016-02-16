@@ -1,5 +1,4 @@
 require_relative 'lib/twitternotifier'
-require 'pp'
 
   def parse(options)
     opt_parser = OptionParser.new do |opts|
