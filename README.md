@@ -36,10 +36,13 @@ Modify the config file 'config.yaml.example' and save as 'config.yaml'.  Then to
 ```
 # Start the server and daemonize
 ruby notify_server.rb start
+
 # Stop the server
 ruby notify_server.rb stop
+
 # Run in interactive mode
 ruby notify_server.rb run
+
 # Supply command line args
 ruby notify_server.rb run -- --verbose
 ```
