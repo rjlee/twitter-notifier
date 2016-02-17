@@ -49,7 +49,7 @@ ruby notify_server.rb run -- --verbose
 
 ## Adding as a launch daemon
 
-Mac OS X supports running commands on login/periodically via launchd (see http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs).  The following configuration will cause the launchd service to run the daemon once an hour when logged in.
+Mac OS X supports running commands on login/periodically via launchd (see http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs).  The following configuration will cause the launchd service to attempt to run the daemon once an hour when logged in.
 
 To automate starting/running of the daemon:
 
