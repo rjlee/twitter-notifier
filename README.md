@@ -81,6 +81,11 @@ launchctl unload com.rjlee.twitter-notifier
 rm $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
 ```
 
+## TODO
+
+* Add CLI tests - http://theodi.org/blog/kicking-aruba-into-a-bin
+* Add multiple config file support
+
 ## License
 
 The software is made available under the Apache 2.0 license.  Any assets under the /assets directory are sourced from the web and as such their provenance is unknown.
