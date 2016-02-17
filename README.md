@@ -85,6 +85,7 @@ rm $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
 
 * Add CLI tests - http://theodi.org/blog/kicking-aruba-into-a-bin
 * Add multiple config file support
+* Make launchd install simpler - http://apple.stackexchange.com/questions/36552/run-bash-script-at-login-stored-in-the-home-folder
 
 ## License
 
