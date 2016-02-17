@@ -23,7 +23,7 @@ RSpec.describe TwitterNotifier do
 
     tn = TwitterNotifier.new(delay: 1, search: "securitay", verbose: false, quiet: true)
     tn.stubs(:connect).returns(client)
-    # This causes the loop to run twice before exiting
+    # This causes the loop to run twice before exiting, allowing testing of recent tweet caching
     tn.stubs(:loop?).returns(true).returns(true).returns(false)
 
     tn.run
