@@ -55,22 +55,8 @@ NOTE: Here Be Dragons, this works for me (tm) but it requires some knowledge of 
 
 Find your default rvm ruby version:
 ```
-$rvm list
-
-rvm rubies
-
-   ruby-2.0.0-p643 [ x86_64 ]
-=* ruby-2.2.1 [ x86_64 ]
-
-# => - current
-# =* - current && default
-#  * - default
-```
-
-This means the default rvm ruby is located at (you'll need to substitute for your own username):
-
-```
-/Users/USERNAME/.rvm/wrappers/ruby-2.2.1/ruby
+rvm info | grep ruby: | tail -1
+    ruby:         "/Users/leer15/.rvm/rubies/ruby-2.2.1/bin/ruby"
 ```
 
 To automate starting/running of the daemon:
