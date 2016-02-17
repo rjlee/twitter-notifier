@@ -1,4 +1,7 @@
+#!/usr/bin/ruby
+
 require_relative 'lib/twitternotifier'
+require 'bundler/setup'
 
 # Loads config values from cmd line args
 def parse(options)

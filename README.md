@@ -49,7 +49,29 @@ ruby notify_server.rb run -- --verbose
 
 ## Adding as a launch daemon
 
-Mac OS X supports running commands on login/periodically via launchd (see http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs).  The following configuration will cause the launchd service to attempt to run the daemon once an hour when logged in.
+Mac OS X supports running commands on login/periodically via launchd (see http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs and http://notes.jerzygangi.com/creating-a-ruby-launchd-task-with-rvm-in-os-x/).  The following configuration will cause the launchd service to attempt to run the daemon every 10 minutes when logged in.
+
+NOTE: Here Be Dragons, this works for me (tm) but it requires some knowledge of RVM.
+
+Find your default rvm ruby version:
+```
+$rvm list
+
+rvm rubies
+
+   ruby-2.0.0-p643 [ x86_64 ]
+=* ruby-2.2.1 [ x86_64 ]
+
+# => - current
+# =* - current && default
+#  * - default
+```
+
+This means the default rvm ruby is located at (you'll need to substitute for your own username):
+
+```
+/Users/USERNAME/.rvm/wrappers/ruby-2.2.1/ruby
+```
 
 To automate starting/running of the daemon:
 
@@ -57,10 +79,11 @@ To automate starting/running of the daemon:
 cd /your/download/location/twitter-notification-centre
 cp start_example.sh start.sh
 chmod u+x start.sh
-# Edit start.sh to include any required args/config 
+# Edit start.sh to use the launchd example and include the ruby path identifed in the above step
 mkdir ~/bin
 ln -s start.sh ~/bin/twitter-notitier.sh
-cp com.rjlee.twitter-notifier.plist $HOME/Library/LaunchAgents/
+cp com.rjlee.twitter-notifier.plist.example $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
+# Edit com.rjlee.twitter-notifier.plist to reference your username in the ProgramArguments element
 launchctl load $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
 ```
 
