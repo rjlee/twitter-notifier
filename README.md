@@ -47,6 +47,30 @@ ruby notify_server.rb run
 ruby notify_server.rb run -- --verbose
 ```
 
+## Adding as a launch daemon
+
+Mac OS X supports running commands on login/periodically via launchd (see http://alvinalexander.com/mac-os-x/mac-osx-startup-crontab-launchd-jobs).  The following configuration will cause the launchd service to run the daemon once an hour when logged in.
+
+To automate starting/running of the daemon:
+
+```
+cd /your/download/location/twitter-notification-centre
+cp start_example.sh start.sh
+chmod u+x start.sh
+# Edit start.sh to include any required args/config 
+mkdir ~/bin
+ln -s start.sh ~/bin/twitter-notitier.sh
+cp com.rjlee.twitter-notifier.plist $HOME/Library/LaunchAgents/
+launchctl load $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
+```
+
+To remove:
+
+```
+launchctl unload com.rjlee.twitter-notifier
+rm $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
+```
+
 ## License
 
 The software is made available under the Apache 2.0 license.  Any assets under the /assets directory are sourced from the web and as such their provenance is unknown.
