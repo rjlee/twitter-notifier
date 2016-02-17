@@ -9,11 +9,24 @@ RSpec.describe TwitterNotifier do
     expect(tn.options.quiet).to eq(TwitterNotifier::QUIET)
   end
 
-  # http://stackoverflow.com/questions/13365366/rspec-unit-testing-a-method-which-has-a-infinite-loop
-  # http://stackoverflow.com/questions/5717813/what-is-the-best-practice-when-it-comes-to-testing-infinite-loops/33348498#33348498
-  #it "runs" do
-  #	TwitterNotifier.expects(:loop).yields().then().returns()
-  #	TwitterNotifier.new(delay: 1, search: "securitay", consumer_key: "", consumer_secret: "", verbose: true).run
-  #end
+  it "runs" do
+  	# Setup stub tweet data
+  	tweet3 = stub(id: 3, created_at: Time.now, user: stub(screen_name: 'rjlee'), text: 'boo 3', uri: 'http://rjlee.net')
+    tweet2 = stub(id: 2, created_at: Time.now+60, user: stub(screen_name: 'rjlee'), text: 'boo 2', uri: 'http://rjlee.net')
+    tweet1 = stub(id: 1, created_at: Time.now+120, user: stub(screen_name: 'rjlee'), text: 'boo 1', uri: 'http://rjlee.net')
+   	# This sets the expectation that the first two tweets will be notified in the first loop and then the third tweet will be notified in the second loop
+    client = stub
+    client.stubs(:search).returns([tweet2, tweet1]).returns([tweet3])
+  	TerminalNotifier.expects(:notify).with('rjlee: boo 1', {:title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => 'http://rjlee.net'})
+	TerminalNotifier.expects(:notify).with('rjlee: boo 2', {:title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => 'http://rjlee.net'})
+	TerminalNotifier.expects(:notify).with('rjlee: boo 3', {:title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => 'http://rjlee.net'})
+
+    tn = TwitterNotifier.new(delay: 1, search: "securitay", verbose: false, quiet: true)
+  	tn.stubs(:connect).returns(client)
+  	# This causes the loop to run twice before exiting
+	tn.stubs(:loop?).returns(true).returns(true).returns(false)
+
+  	tn.run
+  end
 
 end

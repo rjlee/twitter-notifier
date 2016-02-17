@@ -23,11 +23,11 @@ class TwitterNotifier
     @options = OpenStruct.new(options)
   end
 
-  def run()
+  def run
     puts "Searching for:\n#{options.search}" unless @options.quiet
     client = connect
     recent_tweet_id = nil
-    loop do
+    while loop? do
       soptions = recent_tweet_id.nil? ? {} : {:since_id => recent_tweet_id}
       puts "Searching with options:\n#{soptions}" if @options.verbose
 
@@ -50,6 +50,10 @@ class TwitterNotifier
 
 
   private
+
+  def loop?()
+  	true
+  end
 
   def connect
     Twitter::REST::Client.new do |config|
