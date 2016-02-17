@@ -33,7 +33,7 @@ Usage: notify.rb [options]
 
 ## Run
 
-Modify the config file 'config.yaml.example' and save as 'config.yaml'.  Then to manage the server:
+Modify the config file '[config.yaml.example](https://github.com/rjlee/twitter-notification-centre/blob/master/config.yaml.example)' and save as 'config.yaml'.  Then to manage the server:
 
 ```
 # Start the server and daemonize
