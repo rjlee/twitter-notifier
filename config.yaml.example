@@ -2,6 +2,8 @@
 search: "securitay"
 delay: 60
 quiet: true
+verbose: true
 consumer_key: "key"
 consumer_secret: "secret"
+proxy: "http://host:port"
 
