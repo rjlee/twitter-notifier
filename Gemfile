@@ -7,4 +7,5 @@ gem 'daemons'
 group :test do
   gem 'rake'
   gem 'rspec'
+  gem 'mocha'
 end

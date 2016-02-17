@@ -1,16 +1,19 @@
+require 'spec_helper'
 require_relative '../lib/twitternotifier'
 
 RSpec.describe TwitterNotifier do
-  it "accepts constructor options" do
-  	tn = TwitterNotifier.new({  :delay => 1, 
-  								:verbose => true, 
-  								:quiet => true, 
-  								:proxy => 'http://rjlee.net', 
-  								:config => 'bobbins.yaml'})
-  	expect(tn.options.delay).to eq(1)
-  	expect(tn.options.verbose).to eq(true)
-  	expect(tn.options.quiet).to eq(true)
-  	expect(tn.options.proxy).to eq('http://rjlee.net')
-  	expect(tn.options.config).to eq('bobbins.yaml')
+  it "sets default values" do
+    tn = TwitterNotifier.new()
+    expect(tn.options.delay).to eq(TwitterNotifier::DELAY)
+    expect(tn.options.verbose).to eq(TwitterNotifier::VERBOSE)
+    expect(tn.options.quiet).to eq(TwitterNotifier::QUIET)
   end
+  
+  # http://stackoverflow.com/questions/13365366/rspec-unit-testing-a-method-which-has-a-infinite-loop
+  # http://stackoverflow.com/questions/5717813/what-is-the-best-practice-when-it-comes-to-testing-infinite-loops/33348498#33348498
+  #it "runs" do
+  #	TwitterNotifier.expects(:loop).yields().then().returns()
+  #	TwitterNotifier.new(delay: 1, search: "securitay", consumer_key: "dPbjTJeOc6sBgU7ZclQmT5yU4", consumer_secret: "6QtYXq4vhpgfeEiG19V8Zff7xWDeEagR0uTWPTg5UPews1lIta", verbose: true).run
+  #end
+
 end

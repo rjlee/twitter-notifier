@@ -9,19 +9,21 @@ require 'twitter'
 
 class TwitterNotifier
 
+  DELAY=60
+  VERBOSE=false
+  QUIET=false
+
   attr_reader :options
 
   def initialize(options = {})
-    @options = OpenStruct.new
-    # Set defaults
-    @options.delay = 60
-    @options.verbose = false
-    @options.quiet = false
-    # Set any options supplied as constructor args
-    options.keys.each { |key| @options[key.to_sym] = options[key] }
+    options = options.dup
+    options[:delay] ||= DELAY
+    options[:verbose] ||= VERBOSE
+    options[:quiet] ||= QUIET
+    @options = OpenStruct.new(options)
   end
 
-  def run
+  def run()
     puts "Searching for:\n#{options.search}" unless @options.quiet
     client = connect
     recent_tweet_id = nil
