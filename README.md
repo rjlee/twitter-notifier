@@ -11,6 +11,8 @@ It is designed to to run on your Mac and requires you to setup a twitter app tha
 * [Ruby](https://www.ruby-lang.org/en/)
 * [Bundler](http://bundler.io/)
 
+The launchd section assumes that [RVM](https://rvm.io) is used to manage the system Ruby.
+
 ## Install
 
 ```
