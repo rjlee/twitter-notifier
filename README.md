@@ -76,10 +76,9 @@ This means the default rvm ruby is located at (you'll need to substitute for you
 To automate starting/running of the daemon:
 
 ```
-cd /your/download/location/twitter-notification-centre
-cp start_example.sh start.sh
+cp start.sh.example start.sh
 chmod u+x start.sh
-# Edit start.sh to use the launchd example and include the ruby path identifed in the above step
+# Edit start.sh and include the ruby path identifed in the above step
 mkdir ~/bin
 ln -s start.sh ~/bin/twitter-notitier.sh
 cp com.rjlee.twitter-notifier.plist.example $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
