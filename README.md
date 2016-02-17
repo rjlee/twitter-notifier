@@ -57,8 +57,8 @@ NOTE: Here Be Dragons, this works for me (tm) but it requires some knowledge of 
 
 Find your default rvm ruby version:
 ```
-rvm info | grep ruby: | tail -1
-    ruby:         "/Users/leer15/.rvm/rubies/ruby-2.2.1/bin/ruby"
+rvm info | grep ruby: | tail -1 | cut -d '"' -f2
+/Users/username/.rvm/rubies/ruby-2.2.1/bin/ruby
 ```
 
 To automate starting/running of the daemon:
