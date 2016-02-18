@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require_relative 'lib/twitternotifier'
+require_relative '../lib/twitternotifier'
 require 'bundler/setup'
 
 # Loads config values from cmd line args
@@ -37,11 +37,11 @@ def parse(options)
   options
 end
 
-# Loads config values from yaml file
+# Loads config values from yaml file and udpates options hash
 def load_config(options)
-  if File.exist?(File.join(__dir__, options.config))
+  if File.exist?(options.config)
     fileconf = {}
-    fileconf = YAML::load_file(File.join(__dir__, options.config))
+    fileconf = YAML::load_file(options.config)
     fileconf.keys.each do |key|
       options[key.to_sym] = fileconf[key]
     end
@@ -50,10 +50,9 @@ def load_config(options)
 end
 
 options = OpenStruct.new
-options.config = 'config.yaml'
+options.config = File.join(File.expand_path(File.dirname(__FILE__)),'..','config','config.yaml')
 options.proxy = ENV['HTTPS_PROXY'].nil? ? '' : ENV['HTTPS_PROXY']
 options = load_config(options)
 options = parse(options)
-
 tn = TwitterNotifier.new(options.to_h)
 tn.run

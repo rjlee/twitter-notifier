@@ -17,7 +17,7 @@ The launchd section assumes that [RVM](https://rvm.io) is used to manage the sys
 
 ```
 bundle install
-ruby notify.rb --help
+ruby bin/notify.rb --help
 
 Usage: notify.rb [options]
 
@@ -37,16 +37,16 @@ Modify the config file '[config.yaml.example](https://github.com/rjlee/twitter-n
 
 ```
 # Start the server and daemonize
-ruby notify_server.rb start
+ruby bin/notify_server.rb start
 
 # Stop the server
-ruby notify_server.rb stop
+ruby bin/notify_server.rb stop
 
 # Run in interactive mode
-ruby notify_server.rb run
+ruby bin/notify_server.rb run
 
 # Supply command line args
-ruby notify_server.rb run -- --verbose
+ruby bin/notify_server.rb run -- --verbose
 ```
 
 ## Adding as a launch daemon
@@ -64,6 +64,7 @@ rvm info | grep ruby: | tail -1 | cut -d '"' -f2
 To automate starting/running of the daemon:
 
 ```
+cd bin
 cp start.sh.example start.sh
 chmod u+x start.sh
 # Edit start.sh and include the ruby path identifed in the above step

@@ -6,6 +6,7 @@ require 'ostruct'
 require 'yaml'
 require 'terminal-notifier'
 require 'twitter'
+require 'pp'
 
 class TwitterNotifier
 
@@ -22,10 +23,11 @@ class TwitterNotifier
     options[:quiet] ||= QUIET
     options[:search] = options[:search].is_a?(String) ? [options[:search]] : options[:search]
     @options = OpenStruct.new(options)
+    pp @options
   end
 
   def run
-    puts "Searching for:\n#{options.search}" unless @options.quiet
+    puts "Searching for:\n#{@options.search}" unless @options.quiet
     client = connect
     recent_tweet_id = Hash.new(nil)
     options.search.each { |search| recent_tweet_id[search] = nil }

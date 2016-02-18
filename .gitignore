@@ -1,5 +1,5 @@
 Gemfile.lock
-start.sh
-notify.rb.pid
+*start.sh
+*notify.rb.pid
 config.yaml
 com.rjlee.twitter-notifier.plist
