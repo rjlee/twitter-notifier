@@ -1,5 +1,6 @@
 ---
 search: "securitay"
+# search: ["securitay","swift"]
 delay: 60
 quiet: true
 verbose: true
