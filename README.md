@@ -70,7 +70,6 @@ chmod u+x start.sh
 mkdir ~/bin
 ln -s start.sh ~/bin/twitter-notitier.sh
 cp com.rjlee.twitter-notifier.plist.example $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
-# Edit com.rjlee.twitter-notifier.plist to reference your username in the ProgramArguments element
 launchctl load $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
 ```
 
@@ -85,7 +84,6 @@ rm $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
 
 * Add CLI tests - http://theodi.org/blog/kicking-aruba-into-a-bin
 * Add multiple config file support
-* Make launchd install simpler - http://apple.stackexchange.com/questions/36552/run-bash-script-at-login-stored-in-the-home-folder
 * Add support for different notification backends e.g. Growl
 * Add streaming support - https://dev.twitter.com/streaming/sitestreams#applyingforaccess
 * Support multiple searches (or maybe configs ?)

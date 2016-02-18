@@ -7,7 +7,9 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/USERNAME/bin/twitter-notifier.sh</string>
+    <string>sh</string>
+    <string>-c</string>
+    <string>"$HOME/bin/twitter-notifier.sh"</string>
   </array>
 
   <key>Nice</key>
