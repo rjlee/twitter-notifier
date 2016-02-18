@@ -38,7 +38,7 @@ class TwitterNotifier
             # Match either tweets that are new if we haven't seen any tweets before or tweets since the last most
             # recent tweet if we have seen tweets before.  This means it will send notifications for tweets
             # sent during being laptop being suspended and woken up
-            if (recent_tweet_id[search].nil? && tweet.created_at >= Time.now-@options.delay) or (!recent_tweet_id[search].nil?)
+            if tweeted_since?(tweet, @options.delay, recent_tweet_id[search])
               puts "#{tweet.user.screen_name}: #{tweet.text}" if @options.verbose
               TerminalNotifier.notify("#{tweet.user.screen_name}: #{tweet.text}", :title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => tweet.uri)
             end
@@ -52,6 +52,10 @@ class TwitterNotifier
 
 
     private
+
+    def tweeted_since?(tweet, delay, recent_tweet_id)
+      (recent_tweet_id.nil? && tweet.created_at >= Time.now-delay) or (!recent_tweet_id.nil?)
+    end
 
     def loop?()
       true
