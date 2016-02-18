@@ -86,7 +86,7 @@ rm $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
 * Add multiple config file support
 * Add support for different notification backends e.g. Growl
 * Add streaming support - https://dev.twitter.com/streaming/sitestreams#applyingforaccess
-* Support multiple searches (or maybe configs ?)
+* Support multiple configs
 
 ## License
 
