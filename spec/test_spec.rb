@@ -16,12 +16,15 @@ RSpec.describe TwitterNotifier do
     tweet1 = stub(id: 1, created_at: Time.now+120, user: stub(screen_name: 'rjlee'), text: 'boo 1', uri: 'http://rjlee.net')
     # This sets the expectation that the first two tweets will be notified in the first loop and then the third tweet will be notified in the second loop
     client = stub
-    client.stubs(:search).returns([tweet2, tweet1]).returns([tweet3])
+    client.stubs(:search).returns([tweet2, tweet1]).returns([tweet3]).returns([tweet2, tweet1]).returns([tweet3])
+    TerminalNotifier.expects(:notify).with('rjlee: boo 1', {:title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => 'http://rjlee.net'})
+    TerminalNotifier.expects(:notify).with('rjlee: boo 2', {:title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => 'http://rjlee.net'})
+    TerminalNotifier.expects(:notify).with('rjlee: boo 3', {:title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => 'http://rjlee.net'})
     TerminalNotifier.expects(:notify).with('rjlee: boo 1', {:title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => 'http://rjlee.net'})
     TerminalNotifier.expects(:notify).with('rjlee: boo 2', {:title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => 'http://rjlee.net'})
     TerminalNotifier.expects(:notify).with('rjlee: boo 3', {:title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => 'http://rjlee.net'})
 
-    tn = TwitterNotifier.new(delay: 1, search: "securitay", verbose: false, quiet: true)
+    tn = TwitterNotifier.new(delay: 1, search: ["securitay", "securitay"], verbose: false, quiet: true)
     tn.stubs(:connect).returns(client)
     # This causes the loop to run twice before exiting, allowing testing of recent tweet caching
     tn.stubs(:loop?).returns(true).returns(true).returns(false)

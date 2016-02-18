@@ -20,29 +20,31 @@ class TwitterNotifier
     options[:delay] ||= DELAY
     options[:verbose] ||= VERBOSE
     options[:quiet] ||= QUIET
+    options[:search] = options[:search].is_a?(String) ? [options[:search]] : options[:search]
     @options = OpenStruct.new(options)
   end
 
   def run
     puts "Searching for:\n#{options.search}" unless @options.quiet
     client = connect
-    recent_tweet_id = nil
+    recent_tweet_id = Hash.new(nil)
+    options.search.each { |search| recent_tweet_id[search] = nil }
     while loop? do
-        soptions = recent_tweet_id.nil? ? {} : {:since_id => recent_tweet_id}
-        puts "Searching with options:\n#{soptions}" if @options.verbose
-
-        tweets = client.search(@options.search, soptions).take(100).collect
-        tweets.each do |tweet|
-          # Match either tweets that are new if we haven't seen any tweets before or tweets since the last most
-          # recent tweet if we have seen tweets before.  This means it will send notifications for tweets
-          # sent during being laptop being suspended and woken up
-          if (recent_tweet_id.nil? && tweet.created_at >= Time.now-@options.delay) or (!recent_tweet_id.nil?)
-            puts "#{tweet.user.screen_name}: #{tweet.text}" if @options.verbose
-            TerminalNotifier.notify("#{tweet.user.screen_name}: #{tweet.text}", :title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => tweet.uri)
+        options.search.each do |search|      
+        soptions = recent_tweet_id[search].nil? ? {} : {:since_id => recent_tweet_id[search]}
+        puts "Searching from '#{search}' with options:\n#{soptions}" if @options.verbose
+          tweets = client.search(search, soptions).take(100).collect
+          tweets.each do |tweet|
+            # Match either tweets that are new if we haven't seen any tweets before or tweets since the last most
+            # recent tweet if we have seen tweets before.  This means it will send notifications for tweets
+            # sent during being laptop being suspended and woken up
+            if (recent_tweet_id[search].nil? && tweet.created_at >= Time.now-@options.delay) or (!recent_tweet_id[search].nil?)
+              puts "#{tweet.user.screen_name}: #{tweet.text}" if @options.verbose
+              TerminalNotifier.notify("#{tweet.user.screen_name}: #{tweet.text}", :title => 'Twitter Search', :appIcon => './assets/twitter.png', :sender => 'com.twitter.twitter-mac', :open => tweet.uri)
+            end
           end
+          recent_tweet_id[search] = tweets.first.id if tweets.count > 0
         end
-        recent_tweet_id = tweets.first.id if tweets.count > 0
-
         puts "Sleeping for #{@options.delay} secs" if @options.verbose
         sleep(@options.delay)
       end
