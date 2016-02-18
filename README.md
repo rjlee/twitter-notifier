@@ -17,9 +17,9 @@ The launchd section assumes that [RVM](https://rvm.io) is used to manage the sys
 
 ```
 bundle install
-ruby bin/notify.rb --help
+ruby bin/notify --help
 
-Usage: notify.rb [options]
+Usage: notify [options]
 
         --search SEARCH              the search string to search twitter for
         --delay DELAY                the time in seconds between checking for updates
