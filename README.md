@@ -64,13 +64,12 @@ rvm info | grep ruby: | tail -1 | cut -d '"' -f2
 To automate starting/running of the daemon:
 
 ```
-cd bin
-cp start.sh.example start.sh
+cp bin/start.sh.example bin/start.sh
 chmod u+x start.sh
 # Edit start.sh and include the ruby path identifed in the above step
 mkdir ~/bin
-ln -s start.sh ~/bin/twitter-notitier.sh
-cp com.rjlee.twitter-notifier.plist.example $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
+ln -s bin/start.sh ~/bin/twitter-notitier.sh
+cp config/com.rjlee.twitter-notifier.plist.example $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
 launchctl load $HOME/Library/LaunchAgents/com.rjlee.twitter-notifier.plist
 ```
 
