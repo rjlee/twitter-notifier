@@ -37,16 +37,16 @@ Modify the config file '[config.yaml.example](https://github.com/rjlee/twitter-n
 
 ```
 # Start the server and daemonize
-ruby bin/notify_server.rb start
+ruby bin/notify_server start
 
 # Stop the server
-ruby bin/notify_server.rb stop
+ruby bin/notify_server stop
 
 # Run in interactive mode
-ruby bin/notify_server.rb run
+ruby bin/notify_server run
 
 # Supply command line args
-ruby bin/notify_server.rb run -- --verbose
+ruby bin/notify_server run -- --verbose
 ```
 
 ## Adding as a launch daemon
