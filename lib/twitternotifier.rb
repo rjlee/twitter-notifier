@@ -1,12 +1,10 @@
 require 'rubygems'
-#require 'bundler/setup'
 
 require 'optparse'
 require 'ostruct'
 require 'yaml'
 require 'terminal-notifier'
 require 'twitter'
-require 'pp'
 
 class TwitterNotifier
 
@@ -23,7 +21,6 @@ class TwitterNotifier
     options[:quiet] ||= QUIET
     options[:search] = options[:search].is_a?(String) ? [options[:search]] : options[:search]
     @options = OpenStruct.new(options)
-    pp @options
   end
 
   def run
