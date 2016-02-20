@@ -22,6 +22,8 @@ Note the generated `consumer-key` and `consumer-secret` in the 'Keys and Access 
 ## Install
 
 ```
+git clone git@github.com:rjlee/twitter-notifier.git
+cd twitter-notifier
 bundle install
 ruby bin/notify --help
 
