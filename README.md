@@ -15,7 +15,9 @@ The launchd section assumes that [RVM](https://rvm.io) is used to manage the sys
 
 ## Register twitter app
 
-Visit https://apps.twitter.com/ and click 'Create New App'.  Note the generated `consumer-key` and `consumer-secret` in the 'Keys and Access Tokens' tab.
+Visit https://apps.twitter.com/ and click 'Create New App'.  
+
+Note the generated `consumer-key` and `consumer-secret` in the 'Keys and Access Tokens' tab.
 
 ## Install
 
