@@ -4,7 +4,7 @@ Script to periodically run a twitter search and post notifications in Mac OS X n
 
 ![Exmaple in notification centre](https://raw.githubusercontent.com/rjlee/twitter-notification-centre/master/assets/example.png "")
 
-It is designed to to run on your Mac and requires you to setup a twitter app that will search twitter using your credentials.  It uses the twitter gem https://github.com/sferik/twitter and instructions for setting up an app can be found in the README.
+It is designed to to run on your Mac and requires you to register a twitter app that will search twitter using the app credentials.  
 
 ## Requires
 
@@ -12,6 +12,10 @@ It is designed to to run on your Mac and requires you to setup a twitter app tha
 * [Bundler](http://bundler.io/)
 
 The launchd section assumes that [RVM](https://rvm.io) is used to manage the system Ruby.
+
+## Register twitter app
+
+Visit https://apps.twitter.com/ and click 'Create New App'.  Note the generated `consumer-key` and `consumer-secret` in the 'Keys and Access Tokens' tab.
 
 ## Install
 
